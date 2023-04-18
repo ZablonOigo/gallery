@@ -2,14 +2,6 @@
 
 {% block content %}
 <h2>index page </h2>
-
-<ul class="">
-    {% for category in categories %}
-       <li class="">
-        <a href="">{{category}}</a>
-       </li>
-       {% endfor %}
-</ul>
 <h2>images</h2>
 {% for pic in pics %}
 
@@ -26,4 +18,11 @@
 <a href="{% url 'detail' pic.id %}" class="">View photo</a>
 
 {% endfor %}
+<h2>Categories</h2>
+  {% for category in categories %}
+     <h4>{{category.name}}</h4>
+      <p>{{category.pics.count}} pics</p>
+   
+     {% endfor %}
+</ul>
 {% endblock %}
