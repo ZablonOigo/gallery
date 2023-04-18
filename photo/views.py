@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-
+from django.db.models import Q
 from .models import *
 from .forms import *
 
@@ -61,3 +61,23 @@ def delete_photo(request, id):
     elif request.method =="POST":
         pic.delete()
         return redirect('photo:index')       
+    
+
+
+
+  
+def  search_pic(request):
+    query=request.GET.get('query','')
+    category_id=request.GET.get('category',0)
+    categories=Category.objects.all()
+    pics=Pic.objects.all()
+    if category_id:
+        pics=pics.filter(category_id=category_id)
+    if query:
+        pics=pics.filter(Q(name__icontains=query)|Q(description__icontains=query)) 
+    return render(request,'photo/pics.html',{
+        'query':query,
+        'category_id':int(category_id),
+        'pics':pics,
+        'categories':categories,
+    })        

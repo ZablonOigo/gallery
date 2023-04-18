@@ -1,0 +1,21 @@
+{% extends 'photo/base.html' %}
+
+{% block content %}
+<form action="" method="get">
+    <input type="text" name="query" value="{{query}}" placeholder="Search here....">
+      <input type="submit" value="search">
+</form>
+<ul>
+{% for category in categories %}
+<li class=""><a href="{% url 'photo:search' %}?query={{query}}&category={{category.id}}" class="">{{category.name}}</a></li>
+{% endfor %}
+<hr>
+<p>Clear</p>
+<a href="{% url 'photo:search' %}" class="">Clear</a>
+</ul>
+{% for pic in pics %}
+<img src="{{pic.image.url}}" alt="{{pic.pic.name}}" style="width:100px">
+<h2>{{pic.name}}</h2>
+<p>{{pic.description}}</p>
+{% endfor %}
+{% endblock %}
