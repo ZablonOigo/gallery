@@ -7,7 +7,12 @@
     <title>{% block title %}{% endblock %} Photo</title>
 </head>
 <body>
-    <a href="{% url 'create' %}" class="">Create</a>
+    <a href="{% url 'photo:create' %}" class="">Create</a>
+    <a href="{% url 'user:logout' %}" class="">Logout</a>
+    <a href="{% url 'user:login' %}" class="">Login</a>
+    <a href="{% url 'user:register' %}" class="">Sign Up</a><br>
+
+
     {% block content %}
 
     {% endblock %}

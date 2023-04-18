@@ -6,7 +6,7 @@
 {% for pic in pics %}
 
 <div>
-   <a href="{% url 'detail' pic.id %}" class="">
+   <a href="{% url 'photo:detail' pic.id %}" class="">
    {% if pics %}
      <img src="{{ pic.image.url }}" alt="{{ image.pic.name }}" style="width:100px">
    </a>
@@ -15,7 +15,7 @@
  {% endif %}
 </div>
 <p>{{ pic.description }}</p>
-<a href="{% url 'detail' pic.id %}" class="">View photo</a>
+<a href="{% url 'photo:detail' pic.id %}" class="">View photo</a>
 
 {% endfor %}
 <h2>Categories</h2>

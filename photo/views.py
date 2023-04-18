@@ -28,7 +28,7 @@ def create_photo(request):
             user=form.save(commit=False)
             user.created_by=request.user
             user.save()
-            return redirect('detail', id=user.id)
+            return redirect('photo:detail', id=user.id)
         else:
             return render(request,'photo/create.html', {'form':form})
         
@@ -43,7 +43,7 @@ def update_photo(request,id):
         form=PicForm(request.POST, instance=pic)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('photo:index')
         else:
             return render(request, 'photo/create.html', {'form':form})         
         
@@ -60,4 +60,4 @@ def delete_photo(request, id):
 
     elif request.method =="POST":
         pic.delete()
-        return redirect('index')       
+        return redirect('photo:index')       
