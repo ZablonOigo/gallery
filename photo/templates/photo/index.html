@@ -1,0 +1,29 @@
+{% extends 'photo/base.html' %}
+
+{% block content %}
+<h2>index page </h2>
+
+<ul class="">
+    {% for category in categories %}
+       <li class="">
+        <a href="">{{category}}</a>
+       </li>
+       {% endfor %}
+</ul>
+<h2>images</h2>
+{% for pic in pics %}
+
+<div>
+   <a href="{% url 'detail' pic.id %}" class="">
+   {% if pics %}
+     <img src="{{ pic.image.url }}" alt="{{ image.pic.name }}" style="width:100px">
+   </a>
+     {% else %}
+   <p>No images found.</p>
+ {% endif %}
+</div>
+<p>{{ pic.description }}</p>
+<a href="{% url 'detail' pic.id %}" class="">View photo</a>
+
+{% endfor %}
+{% endblock %}

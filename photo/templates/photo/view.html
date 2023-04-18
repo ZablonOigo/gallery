@@ -1,0 +1,25 @@
+{% extends 'photo/base.html' %}
+
+{% block title %}
+
+{{ pics.name}} |
+{% endblock %}
+
+{% block content %}
+     {% if pics %}
+    <img src="{{pics.image.url}}" alt="{{pic.pic.name}}" style="width:100px">
+    <h4>{{pics.name}}</h4>
+<p>{{pics.description}}</p><br>
+       {% endif %}
+       <a href="" class="">Update</a>
+       <a href="" class="">Delete</a>
+       <a href="{% url 'index' %}" class="">Go back</a>
+<h2>Related Pics</h2>
+{% for pic in related_items %}
+   {% if pic.image %}
+<img src="{{ pic.image.url }}" alt="{{pic.pic.name}}" style="width:100px">
+<h4>{{pic.name}}</h4>
+<p>{{pic.description}}</p>
+     {% endif %}
+{% endfor %}
+{% endblock %}
