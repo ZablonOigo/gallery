@@ -1,0 +1,13 @@
+{% extends 'photo/base.html' %}
+
+{% block  content %}
+<h2>My Pics</h2>
+{% for pic in pics %}
+<img src="{{pic.image.url}}" alt="{{pic.pic.name}}" class="" style="width:100px">
+<p>{{pic.description}}</p>
+{% endfor %}
+{% for category in categories %}
+<h2>{{category.name}}</h2>
+<p class="">{{category.pics.count}} pics</p>
+{% endfor %}
+{% endblock %}
