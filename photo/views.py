@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.db.models import Q
 from .models import *
+from django.contrib.auth.decorators import login_required
 from .forms import *
 
 def index(request):
@@ -16,7 +17,7 @@ def view_photo(request, id):
              'related_items':related_items}
     return render(request, 'photo/view.html', context)
 
-
+@login_required
 def create_photo(request):
     if request.method == 'GET':
         context={'form':PicForm()}
@@ -32,9 +33,10 @@ def create_photo(request):
         else:
             return render(request,'photo/create.html', {'form':form})
         
-
+@login_required
 def update_photo(request,id):
-    pic=get_object_or_404(Pic, id=id)
+    query=Pic.objects.filter(created_by=request.user)
+    pic=get_object_or_404(query, id=id)
     if request.method == 'GET':
         context={'form':PicForm(instance=pic),'id':id}
         return render(request,'photo/create.html',context)  
@@ -51,9 +53,10 @@ def update_photo(request,id):
 
 
 
-
+@login_required
 def delete_photo(request, id):
-    pic=get_object_or_404(Pic, id=id) 
+    query=Pic.objects.filter(created_by=request.user)
+    pic=get_object_or_404(query, id=id) 
     context={'pic':pic}
     if request.method =='GET':
         return render(request,'photo/delete_pic.html', context)

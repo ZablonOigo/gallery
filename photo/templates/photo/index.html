@@ -1,21 +1,26 @@
 {% extends 'photo/base.html' %}
 
 {% block content %}
-<div class="col-sm-6">
-  {% for pic in pics %}
-  <div class="card" style="width: 15rem;">
-    {% if pics %}
-    <img src="{{ pic.image.url }}" class="card-img-top" alt="{{ image.pic.name }}">
-    {% endif %}
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">{{ pic.description }}</p>
-      <a href="{% url 'photo:detail' pic.id %}" class="btn btn-primary">View Photo</a>
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+<h2 class="text-2xl text-center font-semibold">Latest Pic</h2>
+ 
+  <div class="grid grid-cols-3 gap-3">
+    {% for pic in pics %}
+    <div class="px-6 py-12">
+      <a href="{% url 'photo:detail' pic.id %}" class="">
+        {% if pics %}
+        <img src="{{ pic.image.url }}" class="object-contain rounded-t-xl" alt="{{ image.pic.name }}">
+        {% endif %}
+        <div class="px-6 py-12 bg-white rounded-b-xl space-y-2">
+          <h5 class="text-lg "><strong>{{pic.name}}</strong></h5>
+          <p class="text-gray-500">{{ pic.description }}</p>
+          <a href="{% url 'photo:detail' pic.id %}" class="px-4 py-2 bg-teal-500 font-semibold text-white rounded-xl hover:bg-teal-700">View Photo</a>
+        </div>
+      </a>
     </div>
+        {% endfor %}
+      </div>
   </div>
-  {% endfor %}
-</div>
-
 
 <h2>Categories</h2>
   {% for category in categories %}

@@ -4,6 +4,9 @@ from .forms import *
 from django.contrib.auth import login, logout, authenticate
 def sign_in(request):
     if request.method =='GET':
+        if request.user.is_authenticated:
+            return redirect('photo:index')
+        
         form=LoginForm()
         context={'form':form}
         return render(request, 'user/login.html',context)
