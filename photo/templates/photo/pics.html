@@ -5,7 +5,6 @@
     <input type="text" name="query" value="{{query}}" placeholder="Search here....">
       <input type="submit" value="search">
 </form>
-<ul>
 {% for category in categories %}
 <li class=""><a href="{% url 'photo:search' %}?query={{query}}&category={{category.id}}" class="">{{category.name}}</a></li>
 {% endfor %}
