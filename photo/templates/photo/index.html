@@ -1,26 +1,22 @@
 {% extends 'photo/base.html' %}
 
 {% block content %}
-<h2>index page </h2>
-<h2>images</h2>
-<a href="{% url 'dash:index' %}" class="">Dashboard</a>
-<a href="{% url 'photo:search' %}" class="">Browse</a>
-
-{% for pic in pics %}
-
-<div>
-   <a href="{% url 'photo:detail' pic.id %}" class="">
-   {% if pics %}
-     <img src="{{ pic.image.url }}" alt="{{ image.pic.name }}" style="width:100px">
-   </a>
-     {% else %}
-   <p>No images found.</p>
- {% endif %}
+<div class="col-sm-6">
+  {% for pic in pics %}
+  <div class="card" style="width: 15rem;">
+    {% if pics %}
+    <img src="{{ pic.image.url }}" class="card-img-top" alt="{{ image.pic.name }}">
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">{{ pic.description }}</p>
+      <a href="{% url 'photo:detail' pic.id %}" class="btn btn-primary">View Photo</a>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-<p>{{ pic.description }}</p>
-<a href="{% url 'photo:detail' pic.id %}" class="">View photo</a>
 
-{% endfor %}
+
 <h2>Categories</h2>
   {% for category in categories %}
      <h4>{{category.name}}</h4>
