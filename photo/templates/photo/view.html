@@ -7,23 +7,29 @@
 
 {% block content %}
      {% if pics %}
-    <img src="{{pics.image.url}}" alt="{{pic.pic.name}}" style="width:100px">
+    <img src="{{pics.image.url}}" alt="{{pic.pic.name}}" class="rounded-t-xl ">
     <h4>{{pics.name}}</h4>
 <p>{{pics.description}}</p><br>
        {% endif %}
-       {% if request.user.is_authenticated and request.user == pic.created_by %}
+       {% if request.user.is_authenticated and request.user == pics.created_by %}
        <a href="{% url 'photo:edit' pics.id %}" class="">Update</a>
        <a href="{% url 'photo:delete' pics.id %}" class="">Delete</a>
        {% endif %}
        <a href="{% url 'photo:index' %}" class="">Go back</a>
-<h2>Related Pics</h2>
-{% for pic in related_items %}
-   {% if pic.image %}
-   <a href="{% url 'photo:detail' pic.id %}" class="">
-<img src="{{ pic.image.url }}" alt="{{pic.pic.name}}" style="width:100px">
-</a>
-<h4>{{pic.name}}</h4>
-<p>{{pic.description}}</p>
-     {% endif %}
-{% endfor %}
+       <div class="mt-5 grid grid-cols-3 gap-3 bg-gray-100">
+               <h2 class="text-2xl text-center font-semibold ">Related Pics</h2>
+               {% for pic in related_items %}
+               {% if pic.image %}
+               <a href="{% url 'photo:detail' pic.id %}" class="">
+               <img src="{{ pic.image.url }}" alt="{{pic.pic.name}}" class="rounded-t-xl">
+               </a>
+               <div class="bg-white rounded-b-xl">
+                    <h4 class="text-xl font-semibold ">{{pic.name}}</h4>
+               <p class="text-lg ">{{pic.description}}</p>
+               </div>
+                    {% endif %}
+               {% endfor %}
+
+       </div>
+
 {% endblock %}
