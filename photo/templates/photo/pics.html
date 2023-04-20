@@ -9,27 +9,35 @@
   </form>
   <hr class="my-4">
   <p class="font-semibold text-lg text-center">Categories</p>
+  <ul>
+
   {% for category in categories %}
-  <li class="px-2 py-2 rounded-xl {% if category.id == category_id %} bg-gray-400 font-semibold{% endif %}"><a href="{% url 'photo:search' %}?query={{query}}&category={{category.id}}" class="">{{category.name}}</a></li>
+  <li class="px-2 py-2 rounded-xl text-center {% if category.id == category_id %} bg-gray-400 font-semibold{% endif %}">
+    <a href="{% url 'photo:search' %}?query={{query}}&category={{category.id}}" class="">{{category.name}}</a></li>
   {% endfor %}
   <hr class="my-4">
   <p class="font-semibold text-lg text-center">Clear </p>
   <a href="{% url 'photo:search' %}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-lg rounded-xl text-white">Clear filter </a>
   </ul>
- 
+</div>
 <div class="col-span-3">
   <div class="grid grid-cols-3 gap-3">
     {% for pic in pics %}
-    <div class="bg-white rounded-b-xl">
+   <a href="{% url 'photo:detail' pic.id %}" class="">
+    <div>
       <img src="{{pic.image.url}}" alt="{{pic.pic.name}}" class="rounded-t-xl">
-    <h2 class="text-2xl">{{pic.name}}</h2>
-    <p class="text-lg ">{{pic.description}}</p>
-    </div>
+     </div>
+  
+        <div class="bg-white rounded-b-xl">
+      <h2 class="text-2xl">{{pic.name}}</h2>
+      <p class="text-lg ">{{pic.description}}</p>
+      </div>
+   </a>
     {% endfor %}
   </div>
 
 </div>
-   </div>
+
 
 
 </div>
