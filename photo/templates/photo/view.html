@@ -6,29 +6,77 @@
 {% endblock %}
 
 {% block content %}
-     {% if pics %}
-    <img src="{{pics.image.url}}" alt="{{pic.pic.name}}" class="rounded-t-xl ">
-    <h4>{{pics.name}}</h4>
-<p>{{pics.description}}</p><br>
-       {% endif %}
-       {% if request.user.is_authenticated and request.user == pics.created_by %}
-       <a href="{% url 'photo:edit' pics.id %}" class="">Update</a>
-       <a href="{% url 'photo:delete' pics.id %}" class="">Delete</a>
-       {% endif %}
-       <a href="{% url 'photo:index' %}" class="">Go back</a>
-       <div class="mt-5 grid grid-cols-3 gap-3 bg-gray-100">
-               <h2 class="text-2xl text-center font-semibold ">Related Pics</h2>
+<div class="grid grid-cols-3 gap-6">
+     <div class="col-span-3">
+         <img src="{{ item.image.url }}" alt="" class="rounded-xl">
+         <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+             <h1 class="mb-6 text-3xl">{{item.name }}</h1>
+             <p class="text-gray-500">
+                 <strong>Price:</strong>{{item.price}}
+             </p>
+             <p class="text-gray-500">
+                 <strong>Seller:</strong>{{item.created_by.username }}
+             </p>
+             {% if item.description %}
+             <p class="text-gray-700">
+                 <strong class="text-gray-500">Description:</strong><br>
+                 {{ item.description}}
+             </p>
+             {% endif %}
+ 
+             {% if request.user == item.created_by %}
+             <div class="mt-6 p-6 bg-white rounded-xl"></div>
+             <p>This is your item !</p> 
+             <a href="{% url 'store:update' item.id %}" class="inline-block mt-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl">Update</a>
+             <a href="{% url 'store:delete' item.id %}" class="inline-block mt-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
+             {% else %}
+             <a href="{% url 'comm:new'  item.id %}" class="inline-block mt-6 py-3 px-6 text-lg font-semibold  bg-teal-500 text-white rounded-xl  hover:bg-teal-700">Contact Seller </a>
+             {% endif %}
+         </div>
+     </div>
+ </div>
+<div class="grid grid-cols-3 gap-6">
+     
+     <div class="col-span-3">
+          {% if pics %}
+          <img src="{{pics.image.url}}" alt="{{pic.pic.name}}" class="object-cover  sm:w-96 w-96 h-64 rounded-xl ">
+          {% endif %}
+
+     
+     <div class="col-span-2 p-6 bg-gray-100 rounded-xl ">
+          <h4 class="mb-6 text-3xl font-semibold ">{{pics.name}}</h4>
+          <p class="text-gray-700">{{pics.description}}</p><br>
+        {% if request.user.is_authenticated and request.user == pics.created_by %}
+        <div class="mt-6 p-6 bg-white rounded-xl">
+          <a href="{% url 'photo:edit' pics.id %}" class="px-6 py-3 text-white text-lg font-semibold rounded-xl bg-teal-500 hover:bg-teal-700">Update</a>
+          <a href="{% url 'photo:delete' pics.id %}" class="px-6 py-3  text-white text-lg font-semibold rounded-xl bg-red-500 hover:bg-red-700">Delete</a>
+          {% endif %}
+          <a href="{% url 'photo:index' %}" class="px-6 py-3 rounded-xl text-lg text-white font-semibold bg-gray-500 hover:bg-gray-800">Go back</a>
+                      </div>
+     </div>
+</div>
+</div>
+
+    
+       <div class="mt-6 px-6 py-12 rounded-xl bg-gray-100">
+               <h2 class="text-2xl text-center font-semibold mb-6">Related Pics</h2>
+               <div class="grid grid-cols-3 gap-4">
                {% for pic in related_items %}
-               {% if pic.image %}
-               <a href="{% url 'photo:detail' pic.id %}" class="">
-               <img src="{{ pic.image.url }}" alt="{{pic.pic.name}}" class="rounded-t-xl">
-               </a>
-               <div class="bg-white rounded-b-xl">
-                    <h4 class="text-xl font-semibold ">{{pic.name}}</h4>
-               <p class="text-lg ">{{pic.description}}</p>
-               </div>
-                    {% endif %}
+              
+                    {% if pic.image %}
+                    <a href="{% url 'photo:detail' pic.id %}" class="">
+                    <img src="{{ pic.image.url }}" alt="{{pic.pic.name}}" class="object-cover  sm:w-96 w-96 h-64 rounded-t-xl">
+                    <div class="px-4 py-2 bg-white rounded-b-xl">
+                         <h4 class="text-xl font-semibold px-4 py-2 ">{{pic.name}}</h4>
+                    <p class="text-lg  px-4 py-2">{{pic.description}}</p>
+                    </div>
+                    </a>
+                   
+                         {% endif %}
+               
+             
                {% endfor %}
+          </div>
 
        </div>
 
